@@ -1,6 +1,8 @@
 # Repositorio de Pruebas
 
-![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?logo=linkedin)
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?logo=linkedin&logoColor=white&labelColor=blue)](https://www.linkedin.com/your-profile-url)
+
 
 ¡Bienvenido al repositorio de pruebas!
 
