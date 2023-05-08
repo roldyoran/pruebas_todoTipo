@@ -3,7 +3,7 @@ import os
 import shutil
 
 
-path = input("Enter Path: ") # Variable para obtener la ruta de la carpeta a ordenar
+path = input("Ingresa la Ruta de la carpeta a ordenar: ") # Variable para obtener la ruta de la carpeta a ordenar
 files = os.listdir(path)     # Se ingresa a la carpeta
 
 # Para cada archivo dentro de la carpeta se obtiene su extension y se crea
@@ -17,3 +17,5 @@ for file in files:
     else:
         os.makedirs(path + '/' + extension)
         shutil.move(path + '/' + file, path + '/' + extension + '/' + file)
+
+print("Organización de Archivos Completada.")

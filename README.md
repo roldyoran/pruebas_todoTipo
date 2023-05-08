@@ -18,10 +18,6 @@ El repositorio de pruebas contiene los siguientes elementos:
 
 3. **Datos de Prueba**: Este repositorio puede contener conjuntos de datos de prueba que los desarrolladores pueden utilizar para probar y validar su código. Los datos de prueba se encuentran en el directorio `data` y están organizados de manera adecuada para facilitar su acceso y uso.
 
-## Contribución
-
-¡Eres bienvenido a contribuir a este repositorio de pruebas! Si tienes nuevas ideas, mejoras o ejemplos de prueba, siéntete libre de enviar solicitudes de extracción. Sin embargo, asegúrate de seguir las mejores prácticas de desarrollo y de tener en cuenta que este repositorio está destinado principalmente a la experimentación y las pruebas.
-
 ## Contacto
 
 Si tienes alguna pregunta o sugerencia relacionada con este repositorio de pruebas, no dudes en ponerte en contacto con nosotros. Puedes enviarnos un correo electrónico a [pruebas@example.com](mailto:pruebas@example.com) o abrir un problema en el repositorio.
