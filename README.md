@@ -1,5 +1,7 @@
 # Repositorio de Pruebas
 
+![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?logo=linkedin)
+
 ¡Bienvenido al repositorio de pruebas!
 
 Este repositorio fue creado con el propósito de brindar un espacio seguro para realizar experimentos y pruebas de concepto. Aquí, los desarrolladores pueden probar nuevas ideas, probar funcionalidades y explorar diferentes enfoques sin temor a romper el código principal del proyecto.
