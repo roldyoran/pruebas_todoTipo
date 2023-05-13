@@ -1,0 +1,100 @@
+npm init -y
+
+npm install typescript -D
+
+en el package.json
+	agregamos en la parte de script
+	"tsc": "tsc" en el json
+
+npm run tsc -- --init
+
+vamos al tsconfig.json
+y descomentamos el 
+	composite : true
+	module : coomnjs
+	outDir : ./ -> configurar a-> outDir : "./build"
+
+npm install express -E
+
+creamos la carpeta scr
+	creamos index.ts
+	configurar el index con lo que tiene que llevar, ver datos del archivo directamente pal copy pega
+
+npm install --save @types/express -D
+
+npm run tsc
+
+en el package.json
+	agregamos en la parte de script
+	"start": "node build/scr/index.js" //despues del tsc
+
+npm start
+//si corre todo nice
+// ahora instalamos una cosa para que al configurar algo 
+// se actualize al instante mientras el servidor esta corriendo
+
+npm install ts-node-dev -D
+
+en el package.json
+	agregamos en la parte de script
+	"dev": "ts-node-dev scr/index.ts" // despues del start
+
+npm run dev //se levanta el servidor y probamos a en send si todo va bien en el index.ts
+
+creamos la carpeta routes en el scr que esta a la vista
+	creamos interprete.ts //configuramos el archivo min 40 al 46 mas o menos
+	// en req tiene un guion bajo antes
+
+Vamos a index.js y 
+	comentamos en ping pa que no se repita con el de inteprete.ts
+	y poner: 		app.use('/interprete', router);
+	luego importamos: 	import router from './routes/interprete';
+
+npm run dev //probamos la rutas: localhost:5000/interprete/ping2
+
+en la carpeta scr a la vista
+	creamos la carpeta: controller
+		en controller creamos interprete_controller.ts
+			y configuramos
+
+SE CAMBIAN VARIAS COSAS DE LOS ARCHIVOS 
+VER DEL MINUTO 49 AL 58
+
+una vez configurados la archivos nuevamente
+corremos y verificamos el ping nada mas
+
+npm run dev 
+
+
+NOS QUEDAMOS EN LA HORA 1:01 https://drive.google.com/file/d/1rWOowWhPwQ33OS4YI7ZXOOzmcPUonTz1/view?usp=sharing
+
+Vamos a la carpeta controller
+	creamos dentro una carpeta llamada interprete
+
+//de aqui se intala jison no antes
+
+npm install -g jison
+
+Vamos a la carpeta controller
+	Vamos a la carpeta interprete
+		crear grammar.jison configurar
+
+
+CAMBIAR el terminal a "cmd" 
+EJECUTAR cd scr/controller/interprete 
+EJECUTAR jison grammar.jison
+CAMBIAR a "powershell" 
+
+Vamos a la carpeta interprete y dentro
+	cremaos la carpeta: abstract
+		creamos: Expression.ts
+		creamos: Instruction.ts
+		creamos: Return.ts  //son los tipos
+	cremaos la carpeta: expression
+		creamos: Primitivo.ts
+	cremaos la carpeta: instruction
+		creamos: Print.ts
+
+1:40 en adelante
+
+Probar desde el minuto 2.22 el POST
