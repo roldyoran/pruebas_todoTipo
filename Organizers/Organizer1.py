@@ -18,4 +18,4 @@ for file in files:
         os.makedirs(path + '/' + extension)
         shutil.move(path + '/' + file, path + '/' + extension + '/' + file)
 
-print("Organización de Archivos Completada.")
+print("Organización de Archivos Completada.") 
