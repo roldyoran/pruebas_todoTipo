@@ -16,6 +16,7 @@ def on_click(x, y, button, pressed):
         print("")
         print("Click Izquierdo reconocido correctamente")
         print("Presione la tecla X para detener la grabacion de movimientos\n")
+        
         # Detener la grabación al hacer clic derecho
         listener.stop()
 
@@ -23,7 +24,12 @@ def grabar_acciones():
     global listener  # Hacer listener global
     listener = mouse.Listener(on_click=on_click)
     with listener as l:
-        print("Haz clic derecho para guardar una acción.")
+        textA = """
+Click (derecho) para guardar una accion
+Click (izquierdo + X) para detener la grabacion de acciones
+Se ejecutan las acciones automaticamente
+"""
+        print(textA)
         l.join()
 
 def guardar_acciones(acciones, nombre_archivo='Clickers/acciones.pkl'):
@@ -78,25 +84,62 @@ def reproducir_acciones(acciones):
         print(f"Reproduciendo acción: ({x1}, {y1})")
 
 if __name__ == "__main__":
-    grabar_acciones()
 
-    # Espera hasta que se presione la tecla 'X' para detener la grabación
-    keyboard.wait("X")
-    print("Grabación detenida.\n")
+    textAB = """
+1. Guardar y reproducir acciones
+2. Grabar acciones
+3. Reproducir acciones guardadas
+4. No hacer nada y Salir
+"""
+    print(textAB)
+    opcion = input("Ingrese su opcion: ")
+    print("")
 
-    time.sleep(3)
+    if str(opcion) == "1":
+            
+        grabar_acciones()
 
-    # Guarda las acciones en un archivo
-    guardar_acciones(acciones)
+        # Espera hasta que se presione la tecla 'X' para detener la grabación
+        keyboard.wait("X")
+        print("Grabación detenida.\n")
 
-    # Carga las acciones desde el archivo
-    acciones_cargadas = cargar_acciones()
+        time.sleep(3)
 
-    time.sleep(3) 
+        # Guarda las acciones en un archivo
+        guardar_acciones(acciones)
 
-    if not acciones_cargadas:
-        print("El error de lista vacia, ver su archivo acciones.pkl")
+        # Carga las acciones desde el archivo
+        acciones_cargadas = cargar_acciones()
+
+        time.sleep(3) 
+
+        if not acciones_cargadas:
+            print("El error de lista vacia, ver su archivo acciones.pkl")
+        else:
+            # Reproduce las acciones cargadas
+            reproducir_acciones(acciones_cargadas)
+    elif str(opcion) == "2":
+        
+        grabar_acciones()
+
+        # Espera hasta que se presione la tecla 'X' para detener la grabación
+        keyboard.wait("X")
+        print("Grabación detenida.\n")
+
+        time.sleep(3)
+
+        # Guarda las acciones en un archivo
+        guardar_acciones(acciones)
+    elif str(opcion) == "3":
+        # Carga las acciones desde el archivo
+        acciones_cargadas = cargar_acciones()
+
+        time.sleep(3) 
+
+        if not acciones_cargadas:
+            print("El error de lista vacia, ver su archivo acciones.pkl")
+        else:
+            # Reproduce las acciones cargadas
+            reproducir_acciones(acciones_cargadas)
     else:
-        # Reproduce las acciones cargadas
-        reproducir_acciones(acciones_cargadas)
-    
+        pass
