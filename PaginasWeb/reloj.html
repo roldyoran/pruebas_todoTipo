@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reloj en tiempo real</title>
+  <link rel="icon" href="https://cdnjs.cloudflare.com/ajax/libs/simple-icons/5.11.2/instagram.svg">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .container {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      color: #000000;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    .container.dark-mode {
+      background-color: #000000;
+      color: #ffffff;
+    }
+    
+    h1 {
+      font-size: 48px;
+      text-align: center;
+    }
+    
+    .dark-mode-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #000000;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    .dark-mode-button:hover {
+      background-color: #ffffff;
+      color: #000000;
+    }
+    
+    .dark-mode-button:active {
+      transform: translateY(2px);
+    }
+  </style>
+</head>
+<body>
+  <div class="container dark-mode">
+    <h1 id="clock"></h1>
+  </div>
+  
+  <button id="darkModeButton" class="dark-mode-button" onclick="toggleDarkMode()">Modo claro</button>
+
+  <script>
+    function updateClock() {
+      var now = new Date();
+      var hours = now.getHours();
+      var minutes = now.getMinutes();
+      var seconds = now.getSeconds();
+      
+      var timeString = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
+      
+      document.getElementById('clock').textContent = timeString;
+      
+      setTimeout(updateClock, 1000);
+    }
+    
+    function toggleDarkMode() {
+      var containerElement = document.querySelector('.container');
+      var darkModeButton = document.getElementById('darkModeButton');
+      
+      containerElement.classList.toggle('dark-mode');
+      
+      if (containerElement.classList.contains('dark-mode')) {
+        darkModeButton.textContent = 'Modo claro';
+      } else {
+        darkModeButton.textContent = 'Modo oscuro';
+      }
+    }
+    
+    updateClock();
+  </script>
+</body>
+</html>

@@ -6,7 +6,7 @@ def organizar_archivos(carpeta):
         ruta_archivo = os.path.join(carpeta, archivo)
         if os.path.isfile(ruta_archivo):
             extension = os.path.splitext(archivo)[1]
-            carpeta_destino = os.path.join(carpeta, extension[1:].upper())
+            carpeta_destino = os.path.join(carpeta, extension[1:].lower())
             
             # Crear la carpeta de destino si no existe
             if not os.path.exists(carpeta_destino):
