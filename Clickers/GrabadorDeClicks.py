@@ -14,7 +14,8 @@ def on_click(x, y, button, pressed):
         print(f"Guardando acción: ({x}, {y})")
     elif pressed and button == mouse.Button.right:
         print("")
-        print("==== Click Izquierdo reconocido correctamente ====")
+        print("=================================================================")
+        print(" Click Izquierdo reconocido correctamente")
         print("Presione la tecla X para detener la grabacion de movimientos\n")
         print("=================================================================")
         # Detener la grabación al hacer clic derecho

@@ -33,5 +33,4 @@ Es necesario ingresar una ruta correcta de carpeta, de lo contrario al no existi
 
 Este organizador de archivos es una versión básica y puede requerir ajustes o mejoras según tus necesidades específicas. No dudes en personalizarlo y adaptarlo a tus requerimientos.
 
-¡Esperamos que encuentres útil este organizador de archivos! Si tienes alguna pregunta o sugerencia, no dudes en comunicarte con nosotros.
-
+¡Esperamos que encuentres útil estos organizadores de archivos!
