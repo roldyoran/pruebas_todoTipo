@@ -14,9 +14,9 @@ def on_click(x, y, button, pressed):
         print(f"Guardando acción: ({x}, {y})")
     elif pressed and button == mouse.Button.right:
         print("")
-        print("Click Izquierdo reconocido correctamente")
+        print("==== Click Izquierdo reconocido correctamente ====")
         print("Presione la tecla X para detener la grabacion de movimientos\n")
-        
+        print("=================================================================")
         # Detener la grabación al hacer clic derecho
         listener.stop()
 
@@ -25,9 +25,13 @@ def grabar_acciones():
     listener = mouse.Listener(on_click=on_click)
     with listener as l:
         textA = """
+----------------------- INSTRUCCIONES -----------------------
 Click (derecho) para guardar una accion
 Click (izquierdo + X) para detener la grabacion de acciones
-Se ejecutan las acciones automaticamente
+
+Las acciones se ejecutan automaticamente segun la opcion 
+ingresada
+-------------------------------------------------------------
 """
         print(textA)
         l.join()
@@ -93,7 +97,7 @@ if __name__ == "__main__":
 """
     print(textAB)
     opcion = input("Ingrese su opcion: ")
-    print("")
+    print(" ") 
 
     if str(opcion) == "1":
             
