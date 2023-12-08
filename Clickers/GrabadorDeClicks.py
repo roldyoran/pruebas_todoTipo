@@ -1,41 +1,47 @@
-import keyboard
-from pynput import mouse
+from pynput import mouse, keyboard
 import time
-import pickle  # Agregamos la importación del módulo pickle
+import pickle
 
 acciones = []
+listener_mouse = None  # Hacer listener una variable global
+listener_teclado = None
 
-listener = None  # Hacer listener una variable global
+def on_press(key):
+    global listener_mouse
+    if key == keyboard.Key.esc: # keyboard.KeyCode.from_char('x') #para utilizar una tecla
+        # Detener la grabación al presionar la tecla Esc
+        listener_mouse.stop()
+    
 
 def on_click(x, y, button, pressed):
-    if pressed and button == mouse.Button.left:
+    if pressed and button == mouse.Button.right:
         tiempo_actual = time.time()
         acciones.append((x, y, tiempo_actual))
         print(f"Guardando acción: ({x}, {y})")
-    elif pressed and button == mouse.Button.right:
-        print("")
-        print("=================================================================")
-        print(" Click Izquierdo reconocido correctamente")
-        print("Presione la tecla X para detener la grabacion de movimientos\n")
-        print("=================================================================")
-        # Detener la grabación al hacer clic derecho
-        listener.stop()
 
 def grabar_acciones():
-    global listener  # Hacer listener global
-    listener = mouse.Listener(on_click=on_click)
-    with listener as l:
-        textA = """
------------------------ INSTRUCCIONES -----------------------
-Click (derecho) para guardar una accion
-Click (izquierdo + X) para detener la grabacion de acciones
+    global listener_mouse, listener_teclado
+    listener_mouse = mouse.Listener(on_click=on_click)
+    listener_teclado = keyboard.Listener(on_press=on_press)
 
-Las acciones se ejecutan automaticamente segun la opcion 
-ingresada
--------------------------------------------------------------
-"""
+    with listener_mouse as l, listener_teclado as kl:
+        textA = """
+        ----------------------- INSTRUCCIONES -----------------------
+        Click (derecho) para guardar una acción
+        Mantenga presionada la tecla Esc para detener la grabación de acciones
+
+        Las acciones se ejecutan automáticamente según la opción 
+        ingresada
+        -------------------------------------------------------------
+        """
         print(textA)
-        l.join()
+
+        try:
+            l.join()
+        except KeyboardInterrupt:
+            pass
+
+# Resto del código permanece igual
 
 def guardar_acciones(acciones, nombre_archivo='Clickers/acciones.pkl'):
     with open(nombre_archivo, 'wb') as archivo:
@@ -52,25 +58,24 @@ def cargar_acciones(nombre_archivo='Clickers/acciones.pkl'):
     except FileNotFoundError:
         print(f"El archivo {nombre_archivo} no existe.")
         return []
-    
 
 def reproducir_acciones(acciones):
     print("Reproduciendo acciones...")
-
 
     # para el primer click
     x, y, tiempo_grabacion = acciones[0]
     tiempo_transcurrido = time.time() - tiempo_grabacion
 
     # Espera el tiempo transcurrido desde la grabación
-    time.sleep(4)
+    time.sleep(tiempo_transcurrido)
 
-    # Mueve el mouse a la posición grabada y realiza clic izquierdo
+    # Mueve el mouse a la posición grabada y realiza clic derecho
     with mouse.Controller() as controller:
         controller.position = (x, y)
-        controller.click(mouse.Button.left)
+        controller.click(mouse.Button.right)
 
     # Imprime la acción al momento de reproducirla
+    print("Reproduciendo acción:   x  | y")
     print(f"Reproduciendo acción: ({x}, {y})")
 
     # Iterar sobre la lista usando un índice
@@ -83,7 +88,7 @@ def reproducir_acciones(acciones):
 
         with mouse.Controller() as controller:
             controller.position = (x1, y1)
-            controller.click(mouse.Button.left)
+            controller.click(mouse.Button.right)
 
         # Imprime la acción al momento de reproducirla
         print(f"Reproduciendo acción: ({x1}, {y1})")
@@ -98,16 +103,13 @@ if __name__ == "__main__":
 """
     print(textAB)
     opcion = input("Ingrese su opcion: ")
-    print(" ") 
+    print(" ")
 
     if str(opcion) == "1":
-            
         grabar_acciones()
 
-        # Espera hasta que se presione la tecla 'X' para detener la grabación
-        keyboard.wait("X")
-        print("Grabación detenida.\n")
-
+        # Espera hasta que se presione la tecla 'Esc' para detener la grabación
+        print("\n--Grabación detenida--\nEspere 3 segundos\n")
         time.sleep(3)
 
         # Guarda las acciones en un archivo
@@ -116,21 +118,19 @@ if __name__ == "__main__":
         # Carga las acciones desde el archivo
         acciones_cargadas = cargar_acciones()
 
-        time.sleep(3) 
+        time.sleep(3)
 
         if not acciones_cargadas:
-            print("El error de lista vacia, ver su archivo acciones.pkl")
+            print("Error: Lista vacía. Verifique el archivo acciones.pkl")
         else:
             # Reproduce las acciones cargadas
             reproducir_acciones(acciones_cargadas)
+
     elif str(opcion) == "2":
-        
         grabar_acciones()
 
-        # Espera hasta que se presione la tecla 'X' para detener la grabación
-        keyboard.wait("X")
+        # Espera hasta que se presione la tecla 'Esc' para detener la grabación
         print("Grabación detenida.\n")
-
         time.sleep(3)
 
         # Guarda las acciones en un archivo
@@ -139,10 +139,10 @@ if __name__ == "__main__":
         # Carga las acciones desde el archivo
         acciones_cargadas = cargar_acciones()
 
-        time.sleep(3) 
+        time.sleep(3)
 
         if not acciones_cargadas:
-            print("El error de lista vacia, ver su archivo acciones.pkl")
+            print("Error: Lista vacía. Verifique el archivo acciones.pkl")
         else:
             # Reproduce las acciones cargadas
             reproducir_acciones(acciones_cargadas)
