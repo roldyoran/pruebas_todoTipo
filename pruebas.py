@@ -1,10 +1,19 @@
-import keyboard
+import customtkinter
 
-# Tecla que queremos verificar
-tecla_objetivo = 'a'
+class App(customtkinter.CTk):
+    def __init__(self):
+        super().__init__()
+        self.geometry("600x500")
+        self.title("CTk example")
 
-# Comprobar si la tecla está siendo presionada
-if keyboard.is_pressed(tecla_objetivo):
-    print(f"La tecla {tecla_objetivo} está siendo presionada.")
-else:
-    print(f"La tecla {tecla_objetivo} no está siendo presionada.")
+        # add widgets to app
+        self.button = customtkinter.CTkButton(self, command=self.button_click)
+        self.button.grid(row=0, column=0, padx=20, pady=10)
+
+    # add methods to app
+    def button_click(self):
+        print("button click")
+
+
+app = App()
+app.mainloop()
