@@ -1,3 +1,11 @@
+"""
+==================== Modificaciones Futuras ====================
+- Agregar opcion de elegir si click derecho o izquierdo
+- Agregar opcion de generar ventanas nuevas y ocultar la original
+- 
+================================================================
+"""
+
 import tkinter as tk
 import customtkinter as ctk
 
@@ -17,18 +25,21 @@ label = ctk.CTkLabel(master=app, text="Seleccione una opcion")
 label.pack(padx=10, pady=10)  # Alinea a la izquierda con un pequeño espacio
 
 radio_var = tk.IntVar(value=0)
-radiobutton_1 = ctk.CTkRadioButton(app, text="Grabar y Reproducir",
+radiobutton_1 = ctk.CTkRadioButton(app, text="Grabar y Reproducir Acciones",
                                             #  command=radiobutton_event, 
-                                             variable= radio_var, value=1)
-radiobutton_2 = ctk.CTkRadioButton(app, text="Grabar Unicamente",
+                                             variable= radio_var, value=1,
+                                             border_width_unchecked = 2,width=200)
+radiobutton_2 = ctk.CTkRadioButton(app, text="Grabar Unicamente Acciones",
                                             #  command=radiobutton_event, 
-                                             variable= radio_var, value=2)
-radiobutton_3 = ctk.CTkRadioButton(app, text="Reproducir Unicamente",
+                                             variable= radio_var, value=2,
+                                             border_width_unchecked = 2,width=200)
+radiobutton_3 = ctk.CTkRadioButton(app, text="Reproducir Unicamente Acciones",
                                             #  command=radiobutton_event, 
-                                             variable= radio_var, value=3)
-radiobutton_1.pack(pady=5)
-radiobutton_2.pack(pady=5)
-radiobutton_3.pack(pady=5)
+                                             variable= radio_var, value=3,
+                                             border_width_unchecked = 2,width=200)
+radiobutton_1.pack(padx=20, pady=5)
+radiobutton_2.pack(padx=20, pady=5)
+radiobutton_3.pack(padx=20, pady=5)
 
 
 # Use CTkButton instead of tkinter Button
