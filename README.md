@@ -1,5 +1,11 @@
 # Repositorio de Pruebas
 
+# Notas para el dev
+
+Mejorar las interfaces graficas de customtkinter para hacer las cosas mas bonitas y pros, gracias.
+
+---------
+
 ¡Bienvenido al repositorio de pruebas!
 
 Este repositorio fue creado con el propósito de brindar un espacio en donde se suban progranas de todo tipo para realizar experimentos y pruebas de concepto.
