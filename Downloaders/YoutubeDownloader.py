@@ -3,6 +3,7 @@
 - Agregar opcion de seleccionar carpeta de descarga
 - Agregar opcion de descarga de audio y de video por separado
 - Agregar opcion de descarga masiva por ingreso de varias urls
+- Unir con el YT_Playlist downloader
 ================================================================
 """
 

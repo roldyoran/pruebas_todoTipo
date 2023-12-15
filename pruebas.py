@@ -1,30 +1,20 @@
-import customtkinter
+import tkinter as tk
+from tkinter import filedialog
 
-class ToplevelWindow(customtkinter.CTkToplevel):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.geometry("400x300")
+def abrir_seleccionador_archivos():
+    # Abre el cuadro de diálogo de selección de archivos
+    archivo_seleccionado = filedialog.askopenfilename(title="Seleccionar archivo")
 
-        self.label = customtkinter.CTkLabel(self, text="ToplevelWindow")
-        self.label.pack(padx=20, pady=20)
+    # Imprime la ruta del archivo seleccionado (puedes hacer lo que quieras con la ruta)
+    print("Archivo seleccionado:", archivo_seleccionado)
 
+# Crear la ventana
+ventana = tk.Tk()
+ventana.title("Seleccionador de Archivos")
 
-class App(customtkinter.CTk):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.geometry("500x400")
+# Crear un botón para abrir el cuadro de diálogo de selección de archivos
+boton_seleccionar_archivo = tk.Button(ventana, text="Seleccionar Archivo", command=abrir_seleccionador_archivos)
+boton_seleccionar_archivo.pack(pady=20)
 
-        self.button_1 = customtkinter.CTkButton(self, text="open toplevel", command=self.open_toplevel)
-        self.button_1.pack(side="top", padx=20, pady=20)
-
-        self.toplevel_window = None
-
-    def open_toplevel(self):
-        if self.toplevel_window is None or not self.toplevel_window.winfo_exists():
-            self.toplevel_window = ToplevelWindow(self)  # create window if its None or destroyed
-        else:
-            self.toplevel_window.focus()  # if window exists focus it
-
-
-app = App()
-app.mainloop()
+# Iniciar el bucle de eventos
+ventana.mainloop()
