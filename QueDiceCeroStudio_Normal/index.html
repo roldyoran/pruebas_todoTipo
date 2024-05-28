@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preguntas y Respuestas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="question"></h1>
+        <div id="answers" class="grid-container"></div>
+        <br>
+        <button id="prevButton" onclick="loadPreviousQuestion()">Pregunta Anterior</button>
+
+        
+        <label for="fileInput" class="custom-file-input">Seleccionar Archivo</label>
+        <input type="file" id="fileInput" accept=".json" />
+    
+        
+        <button id="nextButton" onclick="loadNextQuestion()">Siguiente Pregunta</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

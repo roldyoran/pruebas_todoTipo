@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galería de Imágenes</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .image-container {
+        width: 350px;
+        height: 350px;
+        /* margin: 10px; */
+        overflow: hidden;
+      }
+      .image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        cursor: pointer;
+      }
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 2;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.9);
+      }
+      .modal-content {
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 100%;
+        max-height: 100%;
+        position: relative;
+      }
+      .modal-content img {
+        width: auto;
+        height: 100vh;
+        max-width: 100%;
+        object-fit: contain;
+      }
+      .prev,
+      .next {
+        position: absolute;
+        z-index: 20;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 50px;
+        height: 50px;
+        background-color: rgba(211, 168, 247, 1);
+        color: black;
+        font-size: 24px;
+        text-align: center;
+        line-height: 50px;
+        border-radius: 50%;
+        transition: cubic-bezier(0.165, 0.84, 0.44, 1);
+        cursor: pointer;
+      }
+      .prev {
+        left: 10px;
+      }
+      .next {
+        right: 10px;
+      }
+      .prev:hover,
+      .next:hover {
+        scale: 1.1;
+      }
+      .prev:active,
+      .next:active {
+        scale: 1;
+      }
+      .close-btn {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        width: 50px;
+        height: 50px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 30px;
+        text-align: center;
+        cursor: pointer;
+        z-index: 9999; /* Asegura que esté en la capa superior */
+        transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      .close-btn:hover {
+        background-color: rgba(81, 19, 226, 0.7);
+        scale: 1.2;
+      }
+
+      #puta, #caca {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        width: 80%;
+        height: 80%;
+        object-fit: cover;
+        z-index: 9999; /* Asegura que el video esté en la capa superior */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <video id="puta" controls>
+      <source src="video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video> -->
+
+    <audio id="puta" src="depilate.mp3"></audio>
+
+    <video id="caca">
+      <source src="video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <div class="image-container">
+      <img
+        src="taniaBikinistick2.webp"
+        onclick="openModal('taniaBikinistick2.webp')"
+        alt="Image 1"
+      />
+    </div>
+
+    <div class="image-container">
+      <img src="gif.gif" onclick="openModal('gif.gif')" alt="Image 3" />
+    </div>
+
+    <div class="image-container">
+      <img src="gif.gif" onclick="openModal('gif.gif')" alt="Image 3" />
+    </div>
+
+    <div class="image-container">
+      <img
+        src="taniaBikinistick2.webp"
+        onclick="openModal('taniaBikinistick2.webp')"
+        alt="Image 1"
+      />
+    </div>
+
+    <div class="image-container">
+      <img
+
+        src="tagoLeji.gif"
+        onclick="openModal('tagoLeji.gif')"
+        alt="Image 2"
+      />
+    </div>
+
+    <div class="image-container">
+      <img src="gif.gif" onclick="openModal('gif.gif')" alt="Image 3" />
+    </div>
+
+    
+
+    <div class="modal" id="myModal">
+      <div class="modal-content">
+        <button class="close-btn" onclick="closeModal()">X</button>
+        <span class="prev" onclick="prevImage()">&#10094;</span>
+        <img id="modalImg" />
+        <span class="next" onclick="nextImage()">&#10095;</span>
+      </div>
+    </div>
+
+    
+  
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/egg.js/1.0/egg.min.js"></script>
+    <script type="text/javascript">
+      // Espera a que el script externo se cargue antes de ejecutar este código
+      document.addEventListener("DOMContentLoaded", function() {
+        var egg = new Egg("up,up,down,down", function() {
+          console.log("cua");
+          var puta = document.getElementById("puta");
+          puta.style.display = "block"
+              puta.play();
+          setTimeout(function() {
+              puta.style.display = "none"; // O "hidden" si prefieres
+              puta.pause()
+          }, 10000); // 3000 milisegundos = 3 segundos
+        }).listen();
+      });
+
+      // Resto de tu código que utiliza jQuery
+    </script>
+    
+    <script type="text/javascript">
+      // Espera a que el script externo se cargue antes de ejecutar este código
+      document.addEventListener("DOMContentLoaded", function() {
+        var egg = new Egg("up,down,down,left", function() {
+          console.log("caca");
+          var puta = document.getElementById("caca");
+          puta.style.display = "block"
+              puta.play();
+          setTimeout(function() {
+              puta.style.display = "none"; // O "hidden" si prefieres
+              puta.pause()
+          }, 10000); // 3000 milisegundos = 3 segundos
+        }).listen();
+      });
+
+      // Resto de tu código que utiliza jQuery
+    </script>
+
+    <script>
+      var images = [];
+      var currentIndex = 0;
+
+      function openModal(imageUrl) {
+        var modal = document.getElementById("myModal");
+        var modalImg = document.getElementById("modalImg");
+        modal.style.display = "block";
+        modalImg.src = imageUrl;
+
+        // Set current image index
+        currentIndex = images.indexOf(imageUrl);
+      }
+
+      function closeModal() {
+        var modal = document.getElementById("myModal");
+        modal.style.display = "none";
+      }
+
+      function prevImage() {
+        // event.stopPropagation(); // Detiene la propagación del evento click
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        var modalImg = document.getElementById("modalImg");
+        modalImg.src = images[currentIndex];
+      }
+
+      function nextImage() {
+        // event.stopPropagation(); // Detiene la propagación del evento click
+        currentIndex = (currentIndex + 1) % images.length;
+        var modalImg = document.getElementById("modalImg");
+        modalImg.src = images[currentIndex];
+      }
+
+      // Populate images array
+      var imageElements = document.querySelectorAll(".image-container img");
+      imageElements.forEach(function (imageElement) {
+        images.push(imageElement.src);
+      });
+    </script>
+  </body>
+</html>

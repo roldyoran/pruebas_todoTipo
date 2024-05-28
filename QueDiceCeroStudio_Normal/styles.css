@@ -1,0 +1,111 @@
+body {
+    /* font-family: Arial, sans-serif; */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url('gif.gif') no-repeat center top fixed;
+    background-size: cover;
+    /* font-stretch: narrower; */
+    font-family: Helvetica, sans-serif;
+    /* font-weight: 600; */
+}
+
+.container {
+    text-align: center;
+    font-size: x-large;
+    max-width: 800px; /* Cambiado de width a max-width */
+    width: 100%;
+    height: auto;
+    background-color: rgba(255, 255, 255, 1);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    margin-top: 20px;
+}
+
+.grid-item {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white; /* Color del número negro */
+    background-color: rgb(5, 5, 59); /* Fondo amarillo */
+    text-align: center; /* Centrar el texto verticalmente */
+    font-size: larger; /* Ajustar el tamaño del número */
+    transition: ease-in-out 300ms;
+
+}
+
+
+.grid-item:hover {
+    background-color: rgb(45, 138, 214);
+
+}
+
+
+/* Estilo para el input de selección de archivo */
+#fileInput {
+    display: none; /* Ocultar el input real */
+}
+
+/* Estilo del contenedor del botón personalizado */
+.custom-file-input {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #9e4b14; /* Color de fondo del botón */
+    color: white;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Estilo hover del botón personalizado */
+.custom-file-input:hover {
+    background-color: #793203; /* Cambiar el color al pasar el mouse */
+    font-weight: 600;
+}
+
+
+/* Estilo para el botón de "Pregunta Anterior" */
+#prevButton {
+    background-color: #116485; /* Color de fondo del botón */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Estilo hover del botón de "Pregunta Anterior" */
+#prevButton:hover {
+    background-color: #062f55; /* Cambiar el color al pasar el mouse */
+    font-weight: 600;
+}
+
+/* Estilo para el botón de "Pregunta Anterior" */
+#nextButton {
+    background-color: #116485; /* Color de fondo del botón */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Estilo hover del botón de "Pregunta Anterior" */
+#nextButton:hover {
+    background-color: #062f55; /* Cambiar el color al pasar el mouse */
+    font-weight: 600;
+}

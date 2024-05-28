@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Que dice Cerostudio</title>
+
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css"> -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex justify-center items-center min-h-screen bg-cover bg-center bg-no-repeat" style="background-image: url('gif.gif')">
+    <div class="container text-center text-xl max-w-3xl mx-auto bg-white p-4 rounded-xl shadow-md">
+        <h1 id="question" class="text-5xl font-semibold py-6"></h1>
+        <div id="answers" class="grid grid-cols-3 gap-2 mt-2"></div>
+        <br>
+        <button id="prevButton" onclick="loadPreviousQuestion()" class="bg-pink-600 text-white px-4 py-2 rounded hover:bg-pink-900 hover:font-medium transition">Pregunta Anterior</button>
+
+        <label for="fileInput" class="custom-file-input cursor-pointer bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-900 hover:font-medium transition">Seleccionar Archivo</label>
+        <input type="file" id="fileInput" accept=".json" class="hidden">
+
+        <button id="nextButton" onclick="loadNextQuestion()" class="bg-pink-600 text-white px-4 py-2 rounded hover:bg-pink-900 hover:font-medium transition">Siguiente Pregunta</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
