@@ -47,7 +47,7 @@ enlaces = obtener_enlaces_de_los_videos_en_playlist(url_playlist)
 cont = 1
 for enlace in enlaces:
     print(f"{cont} - {enlace}")
-    descargar_audio(enlace)
+    # descargar_audio(enlace)
     time.sleep(2)
     cont += 1
     # if cont == 4:

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de la Serpiente</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        canvas {
+            border: 1px solid #333;
+            margin-top: 20px;
+        }
+
+        #puntuacion {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        #botones {
+            margin-top: 10px;
+        }
+
+        button {
+            font-size: 16px;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Juego de la Serpiente</h1>
+    <canvas id="snakeCanvas" width="400" height="400"></canvas>
+    <div id="puntuacion">Puntuación: <span id="puntuacionValor">0</span></div>
+    <div id="botones">
+        <button onclick="pausarReanudarJuego()">Pausar/Reanudar</button>
+        <button onclick="reiniciarJuego()">Reiniciar</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('snakeCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const gridSize = 20;
+        const tileSize = 20;
+
+        let snake = [
+            { x: 10, y: 10 },
+        ];
+
+        let apple = {
+            x: Math.floor(Math.random() * gridSize),
+            y: Math.floor(Math.random() * gridSize),
+        };
+
+        let direction = 'right';
+        let juegoPausado = false;
+        let puntuacion = 0;
+
+        function draw() {
+            // Limpiar el lienzo
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Dibujar la serpiente
+            ctx.fillStyle = '#4CAF50';
+            snake.forEach(segment => {
+                ctx.fillRect(segment.x * tileSize, segment.y * tileSize, tileSize, tileSize);
+            });
+
+            // Dibujar la manzana
+            ctx.fillStyle = '#FF0000';
+            ctx.fillRect(apple.x * tileSize, apple.y * tileSize, tileSize, tileSize);
+        }
+
+        function update() {
+            if (juegoPausado) {
+                return;
+            }
+
+            // Actualizar la posición de la serpiente
+            const head = { ...snake[0] };
+
+            switch (direction) {
+                case 'up':
+                    head.y -= 1;
+                    break;
+                case 'down':
+                    head.y += 1;
+                    break;
+                case 'left':
+                    head.x -= 1;
+                    break;
+                case 'right':
+                    head.x += 1;
+                    break;
+            }
+
+            // Comprobar colisiones con la manzana
+            if (head.x === apple.x && head.y === apple.y) {
+                // Generar una nueva posición para la manzana
+                apple = {
+                    x: Math.floor(Math.random() * gridSize),
+                    y: Math.floor(Math.random() * gridSize),
+                };
+
+                // Añadir nuevo segmento a la serpiente
+                snake = [head, ...snake];
+                // Aumentar la puntuación
+                puntuacion += 10;
+                actualizarPuntuacion();
+            } else {
+                // Mover la serpiente eliminando la cola
+                snake.pop();
+                // Añadir nuevo segmento a la cabeza
+                snake = [head, ...snake];
+            }
+
+            // Comprobar colisiones con los bordes
+            if (head.x < 0 || head.x >= gridSize || head.y < 0 || head.y >= gridSize) {
+                // Reiniciar el juego si la serpiente choca con los bordes
+                resetGame();
+            }
+
+            // Comprobar colisiones con sí misma
+            for (let i = 1; i < snake.length; i++) {
+                if (head.x === snake[i].x && head.y === snake[i].y) {
+                    // Reiniciar el juego si la serpiente choca consigo misma
+                    resetGame();
+                }
+            }
+        }
+
+        function actualizarPuntuacion() {
+            document.getElementById('puntuacionValor').textContent = puntuacion;
+        }
+
+        function resetGame() {
+            // Reiniciar la posición de la serpiente y la manzana
+            snake = [{ x: 10, y: 10 }];
+            apple = {
+                x: Math.floor(Math.random() * gridSize),
+                y: Math.floor(Math.random() * gridSize),
+            };
+
+            // Reiniciar la dirección y la puntuación
+            direction = 'right';
+            puntuacion = 0;
+            actualizarPuntuacion();
+        }
+
+        function pausarReanudarJuego() {
+            juegoPausado = !juegoPausado;
+        }
+
+        function reiniciarJuego() {
+            resetGame();
+            juegoPausado = false;
+        }
+
+        // Configurar el control de dirección con las teclas de flecha
+        document.addEventListener('keydown', event => {
+            if (!juegoPausado) {
+                switch (event.key) {
+                    case 'ArrowUp':
+                        direction = 'up';
+                        break;
+                    case 'ArrowDown':
+                        direction = 'down';
+                        break;
+                    case 'ArrowLeft':
+                        direction = 'left';
+                        break;
+                    case 'ArrowRight':
+                        direction = 'right';
+                        break;
+                }
+            }
+        });
+
+        // Iniciar el bucle del juego
+        setInterval(function() {
+            draw();
+            update();
+        }, 100); // Actualizar el juego cada 100 milisegundos
+    </script>
+</body>
+</html>

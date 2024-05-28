@@ -1,6 +1,7 @@
 from pynput import mouse, keyboard
 import time
 import pickle
+import os
 
 acciones = []
 listener_mouse = None  # Hacer listener una variable global
@@ -43,14 +44,22 @@ def grabar_acciones():
 
 # Resto del código permanece igual
 
-def guardar_acciones(acciones, nombre_archivo='Clickers/acciones.pkl'):
+def guardar_acciones(acciones, nombre_archivo='acciones.pkl'):
+
+    # # Obtener el directorio base
+    # directorio_base = os.path.dirname(nombre_archivo)
+
+    # # Crear el directorio si no existe
+    # os.makedirs(directorio_base, exist_ok=True)
+
     with open(nombre_archivo, 'wb') as archivo:
         pickle.dump(acciones, archivo)
     print(f"Acciones guardadas exitosamente en {nombre_archivo}")
     print("")
     print("")
 
-def cargar_acciones(nombre_archivo='Clickers/acciones.pkl'):
+def cargar_acciones(nombre_archivo='acciones.pkl'):
+    
     try:
         with open(nombre_archivo, 'rb') as archivo:
             acciones_cargadas = pickle.load(archivo)
@@ -67,7 +76,7 @@ def reproducir_acciones(acciones):
     tiempo_transcurrido = time.time() - tiempo_grabacion
 
     # Espera el tiempo transcurrido desde la grabación
-    time.sleep(tiempo_transcurrido)
+    time.sleep(3)
 
     # Mueve el mouse a la posición grabada y realiza clic derecho
     with mouse.Controller() as controller:

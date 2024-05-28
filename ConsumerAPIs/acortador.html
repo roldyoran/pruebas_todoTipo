@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unshorten URL</title>
+</head>
+<body>
+
+  <h1>Unshorten URL</h1>
+  
+  <label for="shortUrl">URL Acortada:</label>
+  <input type="text" id="shortUrl" placeholder="Ingrese la URL acortada">
+
+  <button onclick="unshortenURL()">Obtener Información</button>
+
+  <div id="result"></div>
+
+  <script>
+    async function unshortenURL() {
+      var shortUrl = document.getElementById('shortUrl').value;
+
+      try {
+        const resolvedUrl = await resolveUrl(shortUrl);
+        mostrarInformacion(resolvedUrl);
+      } catch (error) {
+        mostrarError('Error al obtener información.');
+      }
+    }
+
+    async function resolveUrl(url) {
+      const response = await fetch(url, { method: 'HEAD', redirect: 'follow' });
+
+      if (response.ok) {
+        return response.url;
+      } else {
+        throw new Error('URL no válida o redirección no resuelta.');
+      }
+    }
+
+    function mostrarInformacion(resolvedUrl) {
+      var resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = `
+        <p><strong>URL Original:</strong> ${resolvedUrl}</p>
+      `;
+    }
+
+    function mostrarError(errorMessage) {
+      var resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = `<p style="color: red;">Error: ${errorMessage}</p>`;
+    }
+  </script>
+
+</body>
+</html>

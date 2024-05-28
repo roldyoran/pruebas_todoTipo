@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adivina el Número</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+
+        #gameContainer {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Adivina el Número</h1>
+
+    <div id="gameContainer">
+        <p>¡Intenta adivinar el número entre 1 y 10!</p>
+        <input type="number" id="guessInput" min="1" max="10">
+        <button id="guessButton">Adivinar</button>
+        <p id="resultMessage"></p>
+        <button id="resetButton">Reiniciar Juego</button>
+    </div>
+
+    <script>
+        const randomNumber = Math.floor(Math.random() * 10) + 1;
+        let intentos = 0;
+
+        const guessInput = document.getElementById('guessInput');
+        const guessButton = document.getElementById('guessButton');
+        const resultMessage = document.getElementById('resultMessage');
+        const resetButton = document.getElementById('resetButton');
+
+        function verificarAdivinanza() {
+            const guess = parseInt(guessInput.value);
+
+            if (isNaN(guess) || guess < 1 || guess > 10) {
+                resultMessage.textContent = 'Por favor, ingresa un número válido entre 1 y 10.';
+            } else {
+                intentos++;
+
+                if (guess === randomNumber) {
+                    resultMessage.textContent = `¡Adivinaste el número en ${intentos} intentos! ¡Felicidades!`;
+                    desactivarEntrada();
+                } else {
+                    resultMessage.textContent = 'Número incorrecto. ¡Sigue intentando!';
+                }
+            }
+
+            guessInput.value = '';
+        }
+
+        function reiniciarJuego() {
+            intentos = 0;
+            resultMessage.textContent = '';
+            activarEntrada();
+            randomNumber = Math.floor(Math.random() * 10) + 1;
+        }
+
+        function activarEntrada() {
+            guessInput.disabled = false;
+            guessButton.disabled = false;
+        }
+
+        function desactivarEntrada() {
+            guessInput.disabled = true;
+            guessButton.disabled = true;
+        }
+
+        guessButton.addEventListener('click', verificarAdivinanza);
+        resetButton.addEventListener('click', reiniciarJuego);
+    </script>
+</body>
+</html>

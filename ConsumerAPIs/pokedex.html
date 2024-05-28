@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="icons/dragon.webp" type="image/x-icon">
+    <link rel="shortcut icon" href="icons/dragon.webp" type="image/x-icon">
+</head>
+
+<body>
+
+    <div id="pokedex">
+        <h1>Pokédex</h1>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Buscar Pokémon por nombre" oninput="searchPokemon()">
+        </div>
+        <div class="select-container">
+            <select id="pokemon-select" onchange="getPokemonInfo()">
+                <!-- Opciones de Pokémon se cargarán dinámicamente -->
+            </select>
+        </div>
+        <div id="pokemon-info" class="pokemon-info-container"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const pokemonSelect = document.getElementById('pokemon-select');
+            const searchInput = document.getElementById('search-input');
+
+            // Obtener la lista de Pokémon de la PokeAPI
+            fetch('https://pokeapi.co/api/v2/pokemon?limit=151')
+                .then(response => response.json())
+                .then(data => {
+
+                    // console.log(data)
+                    // Agregar opciones de Pokémon al select
+                    data.results.forEach(pokemon => {
+                        const option = document.createElement('option');
+                        option.value = pokemon.name;
+                        option.textContent = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+                        pokemonSelect.appendChild(option);
+                    });
+
+                    // Seleccionar Bulbasaur por defecto
+                    pokemonSelect.value = 'bulbasaur';
+
+                    // Mostrar información de Bulbasaur al cargar la página
+                    getPokemonInfo();
+                })
+                .catch(error => {
+                    console.error('Error al obtener la lista de Pokémon', error);
+                });
+        });
+
+        function getPokemonInfo() {
+            const pokemonSelect = document.getElementById('pokemon-select');
+            const pokemonInfoContainer = document.getElementById('pokemon-info');
+            const selectedPokemon = pokemonSelect.value;
+
+            // Obtener información detallada del Pokémon seleccionado
+            fetch(`https://pokeapi.co/api/v2/pokemon/${selectedPokemon}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+
+                    // Convertir la altura de decímetros a metros
+                    const heightInMeters = (data.height / 10).toFixed(1);
+
+                    // Obtener tipos de Pokémon
+                    const types = data.types.map(type => type.type.name);
+
+                    // Construir la información del Pokémon
+                    <!-- Dentro de la función getPokemonInfo() -->
+                    const pokemonInfo = `
+                        <h2>${data.name.charAt(0).toUpperCase() + data.name.slice(1)}</h2>
+                        <img src="${data.sprites.front_default}" alt="${data.name}">
+                        <p><strong>Altura:</strong> ${heightInMeters} m</p>
+                        <p><strong>Peso:</strong> ${data.weight / 10} kg</p>
+                        <p><strong>Tipos:</strong> ${types.map(type => `<span class="type"><img src="icons/${type}.webp" alt="${type}.webp"><span>${type}</span></span>`).join('')}</p>
+                        `;
+
+                    // Mostrar la información del Pokémon
+                    pokemonInfoContainer.innerHTML = pokemonInfo;
+                })
+                .catch(error => {
+                    console.error(`Error al obtener información de ${selectedPokemon}`, error);
+                    pokemonInfoContainer.innerHTML = 'Error al obtener información del Pokémon';
+                });
+        }
+
+        function searchPokemon() {
+            const searchInput = document.getElementById('search-input');
+            const searchValue = searchInput.value.toLowerCase();
+            const pokemonSelect = document.getElementById('pokemon-select');
+
+            // Filtrar opciones de Pokémon basadas en la búsqueda
+            Array.from(pokemonSelect.options).forEach(option => {
+                const optionValue = option.value.toLowerCase();
+                option.style.display = optionValue.includes(searchValue) ? 'block' : 'none';
+            });
+
+            // Seleccionar el primer resultado si está visible
+            const visibleOptions = Array.from(pokemonSelect.options).filter(option => option.style.display === 'block');
+            if (visibleOptions.length > 0) {
+                pokemonSelect.value = visibleOptions[0].value;
+                getPokemonInfo();
+            }
+        }
+
+        
+        function getPokemonInfo() {
+            const pokemonSelect = document.getElementById('pokemon-select');
+            const pokemonInfoContainer = document.getElementById('pokemon-info');
+            const selectedPokemon = pokemonSelect.value;
+
+            // Obtener información detallada del Pokémon seleccionado
+            fetch(`https://pokeapi.co/api/v2/pokemon/${selectedPokemon}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+
+                    // Convertir la altura de decímetros a metros
+                    const heightInMeters = (data.height / 10).toFixed(1);
+
+                    // Obtener tipos de Pokémon
+                    const types = data.types.map(type => type.type.name);
+
+                    // Obtener vida y estadísticas
+                    const hp = data.stats.find(stat => stat.stat.name === 'hp').base_stat;
+                    const attack = data.stats.find(stat => stat.stat.name === 'attack').base_stat;
+                    const defense = data.stats.find(stat => stat.stat.name === 'defense').base_stat;
+
+                    // Construir la información del Pokémon
+                    const pokemonInfo = `
+                        <h2>${data.name.charAt(0).toUpperCase() + data.name.slice(1)}</h2>
+                        <img src="${data.sprites.front_default}" alt="${data.name}">
+                        <p><strong>Tipos:</strong> ${types.map(type => `<span class="type"><img src="icons/${type}.webp" alt="${type}.webp"><span>${type}</span></span>`).join('')}</p>
+                        <p><strong>Vida:</strong> ${hp}</p>
+                        <p><strong>Ataque:</strong> ${attack}</p>
+                        <p><strong>Defensa:</strong> ${defense}</p>
+                        `;
+
+                    // Mostrar la información del Pokémon
+                    pokemonInfoContainer.innerHTML = pokemonInfo;
+                })
+                .catch(error => {
+                    console.error(`Error al obtener información de ${selectedPokemon}`, error);
+                    pokemonInfoContainer.innerHTML = 'Error al obtener información del Pokémon';
+                });
+        }
+
+    </script>
+
+</body>
+
+</html>

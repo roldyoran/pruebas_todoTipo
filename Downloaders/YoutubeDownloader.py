@@ -7,13 +7,15 @@
 ================================================================
 """
 
+
 import tkinter
 import customtkinter
 import certifi
 import urllib3
 from pytube import YouTube
 import os
-import ssl; ssl._create_default_https_context = ssl._create_unverified_context
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
 
 # Configuración del certificado de confianza
 http = urllib3.PoolManager(
@@ -30,22 +32,34 @@ def startdownload():
     try:
         # Crear un objeto YouTube con la URL proporcionada
         yt = YouTube(url=link.get())
-        
-        # Obtener la corriente de audio solamente
-        video = yt.streams.get_audio_only()
+
+        # Obtener la corriente de video con la mayor resolución disponible (1080p si está disponible)
+        video = yt.streams.filter(res="1080p", progressive=True).first()
+
+        # Si no hay una corriente de 1080p disponible, intenta obtener la de mayor resolución disponible
+        if video is None:
+            video = yt.streams.filter(progressive=True).order_by('resolution').desc().first()
+
+        # Si no hay corrientes disponibles, muestra un error
+        if video is None:
+            finishLabel.configure(text="Error: No streams available")
+            return
+
+        # Definir la ruta de descarga
+        download_path = os.path.join(os.path.expanduser('~'), 'Downloads')
+
+        # Descargar el video en la carpeta de descargas
+        video.download(output_path=download_path)
 
         titleLabel.configure(text=yt.title, text_color="white")
-        
-        # Descargar el video
-        video.download()
-        
+
         # Actualizar la etiqueta de finalización
-        finishLabel.configure(text="Task Completed!", text_color="green", )
-        
+        finishLabel.configure(text="Task Completed!", text_color="green")
+
     except Exception as e:
         # Capturar y mostrar cualquier error que ocurra durante la descarga
-        # print(f"Some Error!: {e}")
-        finishLabel.configure(text=f"Error: [{e}]")
+        finishLabel.configure(text=f"Error: {e}")
+
 
 # Crear la aplicación Tkinter
 app = customtkinter.CTk()
@@ -55,9 +69,6 @@ app.geometry("620x280")
 # Crear una etiqueta para el título
 title = customtkinter.CTkLabel(app, text="Insert Youtube link")
 title.pack(padx=10, pady=10)
-
-# Crear una variable de cadena para almacenar la URL
-url_var = tkinter.StringVar()
 
 # Crear un cuadro de entrada para la URL
 link = customtkinter.CTkEntry(app, width=350, height=40)

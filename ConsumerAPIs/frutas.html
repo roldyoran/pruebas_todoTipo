@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atrapa la Fruta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        canvas {
+            border: 1px solid #333;
+            margin-top: 20px;
+        }
+
+        button {
+            font-size: 16px;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Atrapa la Fruta</h1>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <br>
+    <button onclick="pausarReanudarJuego()">Pausar/Reanudar</button>
+    <button onclick="reiniciarJuego()">Reiniciar</button>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const character = {
+            x: canvas.width / 2,
+            y: canvas.height - 30,
+            width: 30,
+            height: 30,
+            color: '#3498db',
+            speed: 5
+        };
+
+        const fruit = {
+            x: 0,
+            y: 0,
+            width: 20,
+            height: 20,
+            color: '#e74c3c',
+            speed: 3
+        };
+
+        let score = 0;
+        let juegoPausado = false;
+
+        function drawCharacter() {
+            ctx.fillStyle = character.color;
+            ctx.fillRect(character.x, character.y, character.width, character.height);
+        }
+
+        function drawFruit() {
+            ctx.fillStyle = fruit.color;
+            ctx.fillRect(fruit.x, fruit.y, fruit.width, fruit.height);
+        }
+
+        function drawScore() {
+            ctx.fillStyle = '#333';
+            ctx.font = '20px Arial';
+            ctx.fillText('Puntuación: ' + score, 10, 30);
+        }
+
+        function moveCharacter(direction) {
+            if (direction === 'left' && character.x - character.speed >= 0) {
+                character.x -= character.speed;
+            } else if (direction === 'right' && character.x + character.width + character.speed <= canvas.width) {
+                character.x += character.speed;
+            }
+        }
+
+        function generateRandomFruit() {
+            fruit.x = Math.floor(Math.random() * (canvas.width - fruit.width));
+            fruit.y = 0;
+        }
+
+        function update() {
+            if (!juegoPausado) {
+                // Mover la fruta hacia abajo
+                fruit.y += fruit.speed;
+
+                // Verificar si la fruta ha sido atrapada
+                if (
+                    fruit.x < character.x + character.width &&
+                    fruit.x + fruit.width > character.x &&
+                    fruit.y < character.y + character.height &&
+                    fruit.y + fruit.height > character.y
+                ) {
+                    score += 10;
+                    generateRandomFruit();
+                }
+
+                // Verificar si la fruta ha alcanzado el fondo
+                if (fruit.y + fruit.height >= canvas.height) {
+                    score -= 5; // Penalizar si la fruta llega al fondo sin ser atrapada
+                    generateRandomFruit();
+                }
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawCharacter();
+            drawFruit();
+            drawScore();
+        }
+
+        function gameLoop() {
+            update();
+            draw();
+            requestAnimationFrame(gameLoop);
+        }
+
+        function pausarReanudarJuego() {
+            juegoPausado = !juegoPausado;
+        }
+
+        function reiniciarJuego() {
+            score = 0;
+            juegoPausado = false;
+            generateRandomFruit();
+        }
+
+        // Generar la primera fruta
+        generateRandomFruit();
+
+        // Configurar controles de teclado
+        document.addEventListener('keydown', event => {
+            if (!juegoPausado) {
+                if (event.key === 'ArrowLeft') {
+                    moveCharacter('left');
+                } else if (event.key === 'ArrowRight') {
+                    moveCharacter('right');
+                }
+            }
+        });
+
+        // Iniciar el bucle del juego
+        gameLoop();
+    </script>
+</body>
+</html>

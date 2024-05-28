@@ -1,0 +1,97 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#pokedex {
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px; /* Añadido para limitar el ancho del contenedor principal */
+    width: 100%; /* Añadido para asegurar que el contenedor principal sea responsive */
+    margin: 0 auto; /* Añadido para centrar el contenedor principal */
+}
+
+h1 {
+    color: #c73b18;
+    margin-bottom: 20px;
+}
+
+.search-container,
+.select-container {
+    margin-bottom: 10px;
+}
+
+#search-input,
+#pokemon-select {
+    padding: 10px;
+    font-size: 16px;
+    width: 100%; /* Cambiado para ocupar el 100% del contenedor */
+    box-sizing: border-box; /* Añadido para incluir padding y border en el ancho total */
+}
+
+.pokemon-info-container {
+    margin-top: 20px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.type {
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    display: inline-flex; /* Utilizar flexbox para centrar horizontal y verticalmente */
+    align-items: center; /* Centrar verticalmente */
+    height: 20px; /* Ajusta la altura total del contenedor .type */
+    width: 100px;
+}
+
+.type img {
+    width: 20px; /* Ajusta el tamaño del ícono según sea necesario */
+    height: 20px;
+    margin-right: 5px; /* Espaciado entre el ícono y el texto del tipo */
+}
+
+.type span {
+    display: flex; /* Utilizar flexbox para centrar verticalmente el texto */
+    align-items: center; /* Centrar verticalmente */
+    height: 20px; /* Ajusta la altura del contenedor .type span para centrar verticalmente el texto */
+}
+
+.progress-bar-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.progress-bar {
+    height: 20px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-bar-inner {
+    height: 100%;
+    width: 0;
+    background-color: #4caf50; /* Color de la barra de progreso */
+    transition: width 0.3s ease-in-out;
+}

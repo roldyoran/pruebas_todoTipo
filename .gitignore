@@ -1,2 +1,3 @@
-Downloaders/Musica_Chusito
 **/venv
+activate.ps1
+deactivate.ps1

@@ -34,6 +34,10 @@ app.maxsize(800, 500)
 # app.resizable(False, False)
 app.attributes("-topmost", True)
 
+# Colos
+PRIMARY = "#e84393"
+SECONDARY = "#fd79a8"
+
 
 # Functions
 # def obtenerContenidoTextBox():
@@ -53,9 +57,9 @@ def selectFile():
     textbox34.configure(state="disabled")
 
 # IMAGES
-my_image = ctk.CTkImage(light_image=Image.open("Clickers/MANDALAS-4-Puntas.ppm"),
-                                  dark_image=Image.open("Clickers/MANDALAS-4-Puntas.ppm"),
-                                  size=(40, 40))
+# my_image = ctk.CTkImage(light_image=Image.open("Clickers/MANDALAS-4-Puntas.ppm"),
+#                                   dark_image=Image.open("Clickers/MANDALAS-4-Puntas.ppm"),
+#                                   size=(40, 40))
 
 
 # Frames
@@ -68,11 +72,27 @@ frame32 = ctk.CTkFrame(frame3, fg_color="#161616")
 
 
 radio_var = tk.IntVar(value=0)
-radiobutton_1 = ctk.CTkRadioButton(frame32, text="Click Derecho ", variable=radio_var, value=1, radiobutton_height=10, radiobutton_width=20)
-radiobutton_2 = ctk.CTkRadioButton(frame32, text="Click Izquierdo", variable=radio_var, value=2, radiobutton_height=10, radiobutton_width=20)
+radiobutton_1 = ctk.CTkRadioButton(frame32, 
+                                   text="Click Derecho ", 
+                                   variable=radio_var, 
+                                   value=1, 
+                                   radiobutton_height=20, 
+                                   radiobutton_width=20,
+                                   fg_color=PRIMARY,
+                                   border_width_unchecked=10,
+                                   border_width_checked=10)
+radiobutton_2 = ctk.CTkRadioButton(frame32, 
+                                   text="Click Izquierdo", 
+                                   variable=radio_var, 
+                                   value=2, 
+                                   radiobutton_height=20, 
+                                   radiobutton_width=20,
+                                   fg_color=PRIMARY,
+                                   border_width_unchecked=10,
+                                   border_width_checked=10)
 
 # Labels
-image_label = ctk.CTkLabel(frame1, image=my_image, text="")  # display image with a CTkLabel
+image_label = ctk.CTkLabel(frame1, image=None, text="")  # display image with a CTkLabel
 label11 = ctk.CTkLabel(frame1, text="11", fg_color="purple")
 label12 = ctk.CTkLabel(frame1, text="12", fg_color="green")
 
@@ -85,7 +105,13 @@ label31 = ctk.CTkLabel(frame3, text="31", fg_color="#161616")
 # label33 = ctk.CTkLabel(frame3, text="33", fg_color="red")
 # label34 = ctk.CTkLabel(frame3, text="34", fg_color="white")
 
-button33 = ctk.CTkButton(frame3, text="PLAY", fg_color="red", width=160, hover_color="#8b0000", command=selectFile)
+button33 = ctk.CTkButton(frame3, 
+                         text="PLAY", 
+                         fg_color=PRIMARY, 
+                         width=160, 
+                         hover_color=SECONDARY, 
+                         command=selectFile, 
+                         corner_radius=32)
 textbox34 = ctk.CTkTextbox(frame3, state="disabled")
 
 # App grid
